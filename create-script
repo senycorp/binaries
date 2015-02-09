@@ -1,0 +1,4 @@
+#!/bin/bash
+
+nano ~/bin/$1
+chmod 777 ~/bin/$1

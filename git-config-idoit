@@ -1,0 +1,4 @@
+#!/bin/bash
+
+git config --local core.filemode false
+git config --local user.email skekec@synetics.de

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+eco "asdasd" > /home/senycorp/tmp/asdasdasd
+echo $1 > /home/senycorp/tmp/url

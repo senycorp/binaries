@@ -1,0 +1,22 @@
+#!/bin/bash
+MYSQL_USERNAME="root"
+MYSQL_PASSWORD="MKataturk89"
+MYSQL_HOST="localhost"
+MYSQL_DATABASE=$1
+MYSQL_EXISTS=$(mysql -u ${MYSQL_USERNAME} -p${MYSQL_PASSWORD} -e"SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '${MYSQL_DATABASE}'")
+
+DUMP_NAME=${MYSQL_DATABASE}_$(date +%s).sql
+
+echo "mysql-snapshot started @ XXXXXXX";
+echo "Check, whether Database $1 is already existing."
+
+if [ "$MYSQL_EXISTS" != "" ]; then 
+	echo "OK. Let's backup the Database"
+	mysqldump -u $MYSQL_USERNAME -p$MYSQL_PASSWORD $MYSQL_DATABASE > $DUMP_NAME
+	echo -n "Press Enter to restore: "
+	read
+	mysql -u ${MYSQL_USERNAME} -p${MYSQL_PASSWORD} -e"DROP DATABASE IF EXISTS $MYSQL_DATABASE; CREATE DATABASE $MYSQL_DATABASE;"
+	mysql -u ${MYSQL_USERNAME} -p${MYSQL_PASSWORD} $MYSQL_DATABASE < $DUMP_NAME
+	rm $DUMP_NAME
+	echo "Completed!"
+fi

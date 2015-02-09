@@ -1,0 +1,3 @@
+#!/bin/bash
+mysql -uroot -pMKataturk89 -e"CREATE DATABASE IF NOT EXISTS $1;"
+mysqldump -u root -pMKataturk89 $2 | mysql -u root -pMKataturk89 $1

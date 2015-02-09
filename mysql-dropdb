@@ -1,0 +1,2 @@
+#!/bin/bash
+mysql-exec "DROP DATABASE IF EXISTS $1;"

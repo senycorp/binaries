@@ -1,0 +1,4 @@
+#!/bin/bash
+DIRECTORY_NAME="idoit-stable-$(date +%d%m%Y)"
+echo $DIRECTORY_NAME;
+svn co http://dev.synetics.de/svn/idoit/branches/idoit-stable $DIRECTORY_NAME

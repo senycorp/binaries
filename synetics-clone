@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Clone repository
+git clone $1 $2
+cd $2
+
+# Set email to skekec@synetics.de
+git config --local user.email skekec@synetics.de
+git config --local core.filemode false

@@ -1,0 +1,4 @@
+echo -n "Press [ENTER] to start dumping $1" && read
+mysqldump -u root -pMKataturk89 -h localhost --opt $1 -d --single-transaction | sed 's/ AUTO_INCREMENT=[0-9]*\b//' > mandator.sql
+mysqldump -u root -pMKataturk89 -h localhost --opt $1 authorizations categories date_types decisions departments field_types priorities reasons ressource_types roles standardchange_steps status units --single-transaction --no-create-db --no-create-info > inserts.sql
+echo "Structure and Data dump created."

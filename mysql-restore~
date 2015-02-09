@@ -1,0 +1,2 @@
+#!/bin/bash
+mysql -uroot -pMKataturk89 $1 $2 $3

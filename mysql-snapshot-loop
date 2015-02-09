@@ -1,0 +1,23 @@
+#!/bin/bash
+MYSQL_DATABASE=$1
+MYSQL_EXISTS=$(mysql -e"SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '${MYSQL_DATABASE}'")
+
+DUMP_NAME="/tmp/${MYSQL_DATABASE}_$(date +%s).sql"
+
+COUNTER=0
+
+echo "mysql-snapshot started @ XXXXXXX";
+echo "Check, whether Database $1 is already existing."
+
+if [ "$MYSQL_EXISTS" != "" ]; then 
+	echo "OK. Let's backup the Database"
+	mysqldump $MYSQL_DATABASE > $DUMP_NAME
+	while [ $COUNTER == 0 ]; do
+		echo -n "Press Enter to restore: "
+		read
+		mysql -e"DROP DATABASE IF EXISTS $MYSQL_DATABASE; CREATE DATABASE $MYSQL_DATABASE;"
+		mysql $MYSQL_DATABASE < $DUMP_NAME
+	done
+	rm $DUMP_NAME
+	echo "Completed!"
+fi
